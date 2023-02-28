@@ -28,6 +28,10 @@
   flex-grow: 1;
 }
 
+.textBlue {
+  color: #0070f3; 
+}
+
 .title a {
   color: #0070f3;
   text-decoration: none;
