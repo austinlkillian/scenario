@@ -10,7 +10,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme();
 
-export default function DebtSourcesForm() {
+export default function DebtSources() {
   const [totalDebt, setTotalDebt] = useState(0)
   
   const handleSubmit = (event) => {
