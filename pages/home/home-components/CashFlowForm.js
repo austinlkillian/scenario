@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styles from '../../../styles/Home.module.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -17,7 +16,7 @@ export default function CashFlowForm() {
 
   return (
     <ThemeProvider theme={theme}>
-      <p className={styles.description}>
+      <p className="description">
         Get started by filling out your <strong>financial info:</strong>
       </p>
       <Container component="main" maxWidth="xs">
