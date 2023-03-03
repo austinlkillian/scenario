@@ -6,24 +6,17 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-const theme = createTheme();
-
-export default function DebtSources() {
+export default function DebtSources({changeFormView}) {
   const [totalDebt, setTotalDebt] = useState(0)
   
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    changeFormView('next')
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -62,6 +55,6 @@ export default function DebtSources() {
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    </>
   );
 }

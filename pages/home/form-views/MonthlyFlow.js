@@ -22,13 +22,13 @@ export default function MonthlyFlow({changeFormView}) {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log({
       income: values.monthlyIncome,
       bills: values.monthlyBills,
     });
-    changeFormView(2)
+    changeFormView('next')
   };
 
   return (
