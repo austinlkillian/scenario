@@ -23,20 +23,49 @@ export default function CashFlowForm() {
       </p>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        {formView === 1 && <MonthlyFlow changeFormView={changeFormView} />}
-        {formView === 2 && 
+        {formView === 1 && 
           <AdditiveForm 
+            formView={formView}
             changeFormView={changeFormView} 
-            title="Monthly Bills"
+            title="Monthly Income"
+            defaultLabel="Income"
             initialForm={[{
               id: '0',
               name: '0',
-              label: 'Monthly Bill 1',
-              value: 0
+              label: 'Income',
+              value: '',
+              edit: false
             }]}
           />
         }
-        {formView === 3 && <DebtSources changeFormView={changeFormView} />}
+        {formView === 2 && 
+          <AdditiveForm 
+            formView={formView}
+            changeFormView={changeFormView} 
+            title="Monthly Bills"
+            defaultLabel="Monthly Bill"
+            initialForm={[{
+              id: '0',
+              name: '0',
+              label: 'Monthly Bill',
+              value: ''
+            }]}
+          />
+        }
+        {formView === 3 && 
+          <AdditiveForm 
+            formView={formView}
+            changeFormView={changeFormView} 
+            title="Debt Sources"
+            defaultLabel="Debt Source"
+            initialForm={[{
+              id: '0',
+              name: '0',
+              label: 'Debt Source',
+              value: ''
+            }]}
+          />
+        }
       </Container>
     </>
   );
