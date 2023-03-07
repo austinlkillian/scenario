@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import AdditiveForm from '../../global-components/AdditiveForm';
-import MonthlyFlow from '../form-views/MonthlyFlow';
-import DebtSources from '../form-views/DebtSources';
+import { useSelector, useDispatch } from 'react-redux';
+import { saveIncomeSources, saveBillSources, saveDebtSources } from '../../../store/slices/formSlice';
 
 export default function CashFlowForm() {
+  const formData = useSelector((state) => state.form);
+  const dispatch = useDispatch();
+
   const [formView, setFormView] = useState(1);
 
   const changeFormView = (direction) => {
@@ -14,6 +17,18 @@ export default function CashFlowForm() {
     } else {
       setFormView(formView + 1)
     }
+  }
+
+  const saveIncome = (data) => {
+    dispatch(saveIncomeSources(data))
+  }
+
+  const saveBills = (data) => {
+    dispatch(saveBillSources(data))
+  }
+
+  const saveDebts = (data) => {
+    dispatch(saveDebtSources(data))
   }
 
   return (
@@ -27,6 +42,7 @@ export default function CashFlowForm() {
           <AdditiveForm 
             formView={formView}
             changeFormView={changeFormView} 
+            saveForm={saveIncome}
             title="Monthly Income"
             defaultLabel="Income"
             initialForm={[{
@@ -42,6 +58,7 @@ export default function CashFlowForm() {
           <AdditiveForm 
             formView={formView}
             changeFormView={changeFormView} 
+            saveForm={saveBills}
             title="Monthly Bills"
             defaultLabel="Monthly Bill"
             initialForm={[{
@@ -56,6 +73,7 @@ export default function CashFlowForm() {
           <AdditiveForm 
             formView={formView}
             changeFormView={changeFormView} 
+            saveForm={saveDebts}
             title="Debt Sources"
             defaultLabel="Debt Source"
             initialForm={[{

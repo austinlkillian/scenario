@@ -6,7 +6,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export default function AdditiveForm({formView, changeFormView, title, defaultLabel, initialForm}) {
+export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, initialForm}) {
   const [fields, setFields] = useState(initialForm);
 
   const handleChange = (e) => {
@@ -72,7 +72,8 @@ export default function AdditiveForm({formView, changeFormView, title, defaultLa
     changeFormView('back')
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
+    await saveForm(fields)
     changeFormView('next')
   };
 
