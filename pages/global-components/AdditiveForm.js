@@ -76,7 +76,11 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
 
   const handleNext = async () => {
     await saveForm(fields)
-    changeFormView('next')
+    if(formView < 3) {
+      changeFormView('next')
+    } else {
+      changeFormView('finish')
+    }
   };
 
   return (
@@ -139,7 +143,7 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Next
+              {formView < 3 ? 'Next' : 'Finish'}
             </Button>
           </Grid>
         </Grid>

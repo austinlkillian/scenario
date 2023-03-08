@@ -1,0 +1,81 @@
+import React, { useState } from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import AdditiveForm from '../../global-components/AdditiveForm';
+import { useSelector, useDispatch } from 'react-redux';
+import { saveIncomeSources, saveBillSources, saveDebtSources } from '../../../store/slices/formSlice';
+import { setHomeView } from '../../../store/slices/homeSlice';
+
+export default function CashFlowForm() {
+  const { 
+    incomeSources, 
+    billSources, 
+    debtSources 
+  } = useSelector((state) => state.form);
+  const dispatch = useDispatch();
+
+  const [formView, setFormView] = useState(1);
+
+  const changeFormView = (direction) => {
+    if(direction === 'back') {
+      setFormView(formView - 1)
+    } else if(direction === 'next') {
+      setFormView(formView + 1)
+    } else {
+      dispatch(setHomeView('projectionView'))
+    }
+  }
+
+  const saveIncome = (data) => {
+    dispatch(saveIncomeSources(data))
+  }
+
+  const saveBills = (data) => {
+    dispatch(saveBillSources(data))
+  }
+
+  const saveDebts = (data) => {
+    dispatch(saveDebtSources(data))
+  }
+
+  return (
+    <>
+      <p className="description">
+        Get started by filling out your <strong>financial info:</strong>
+      </p>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        {formView === 1 && 
+          <AdditiveForm 
+            formView={formView}
+            changeFormView={changeFormView} 
+            saveForm={saveIncome}
+            title="Monthly Income"
+            defaultLabel="Income"
+            initialForm={incomeSources}
+          />
+        }
+        {formView === 2 && 
+          <AdditiveForm 
+            formView={formView}
+            changeFormView={changeFormView} 
+            saveForm={saveBills}
+            title="Monthly Bills"
+            defaultLabel="Bill"
+            initialForm={billSources}
+          />
+        }
+        {formView === 3 && 
+          <AdditiveForm 
+            formView={formView}
+            changeFormView={changeFormView} 
+            saveForm={saveDebts}
+            title="Monthly Debt Payments"
+            defaultLabel="Payment"
+            initialForm={debtSources}
+          />
+        }
+      </Container>
+    </>
+  );
+}

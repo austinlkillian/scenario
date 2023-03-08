@@ -11,13 +11,13 @@ const initialState = {
   billSources: [{
     id: '0',
     name: '0',
-    label: 'Monthly Bill',
+    label: 'Bill',
     value: ''
   }],
   debtSources: [{
     id: '0',
     name: '0',
-    label: 'Debt Source',
+    label: 'Payment',
     value: '',
     edit: false,
   }],
