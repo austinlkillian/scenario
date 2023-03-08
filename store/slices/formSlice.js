@@ -1,9 +1,26 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  incomeSources: [],
-  billSources: [],
-  debtSources: [],
+  incomeSources: [{
+    id: '0',
+    name: '0',
+    label: 'Income',
+    value: '',
+    edit: false
+  }],
+  billSources: [{
+    id: '0',
+    name: '0',
+    label: 'Monthly Bill',
+    value: ''
+  }],
+  debtSources: [{
+    id: '0',
+    name: '0',
+    label: 'Debt Source',
+    value: '',
+    edit: false,
+  }],
 }
 
 export const formSlice = createSlice({
@@ -11,16 +28,13 @@ export const formSlice = createSlice({
   initialState,
   reducers: {
     saveIncomeSources: (state, action) => {
-      console.log('incomes', state.incomeSources)
-      console.log('payload', action.payload)
+      state.incomeSources = action.payload
     },
     saveBillSources: (state, action) => {
-      console.log('bills', state.billSources)
-      console.log('payload', action.payload)
+      state.billSources = action.payload
     },
     saveDebtSources: (state, action) => {
-      console.log('debts', state.debtSources)
-      console.log('payload', action.payload)
+      state.debtSources = action.payload
     },
   },
 })

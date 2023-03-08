@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { cloneDeep } from 'lodash'
 import NumberFormatCustom from './NumberFormatCustom'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,7 +8,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
 export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, initialForm}) {
-  const [fields, setFields] = useState(initialForm);
+  const [fields, setFields] = useState(cloneDeep(initialForm));
 
   const handleChange = (e) => {
     const {name, value} = e.target
@@ -63,12 +64,13 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
         name: `${fields.length}`,
         label: `${defaultLabel} ${fields.length + 1}`,
         value: '',
-        edit: false
+        edit: false,
       }
     ])
   };
 
-  const handleBack = () => {
+  const handleBack = async () => {
+    await saveForm(fields)
     changeFormView('back')
   };
 

@@ -6,7 +6,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { saveIncomeSources, saveBillSources, saveDebtSources } from '../../../store/slices/formSlice';
 
 export default function CashFlowForm() {
-  const formData = useSelector((state) => state.form);
+  const { 
+    incomeSources, 
+    billSources, 
+    debtSources 
+  } = useSelector((state) => state.form);
   const dispatch = useDispatch();
 
   const [formView, setFormView] = useState(1);
@@ -45,13 +49,7 @@ export default function CashFlowForm() {
             saveForm={saveIncome}
             title="Monthly Income"
             defaultLabel="Income"
-            initialForm={[{
-              id: '0',
-              name: '0',
-              label: 'Income',
-              value: '',
-              edit: false
-            }]}
+            initialForm={incomeSources}
           />
         }
         {formView === 2 && 
@@ -61,12 +59,7 @@ export default function CashFlowForm() {
             saveForm={saveBills}
             title="Monthly Bills"
             defaultLabel="Monthly Bill"
-            initialForm={[{
-              id: '0',
-              name: '0',
-              label: 'Monthly Bill',
-              value: ''
-            }]}
+            initialForm={billSources}
           />
         }
         {formView === 3 && 
@@ -76,12 +69,7 @@ export default function CashFlowForm() {
             saveForm={saveDebts}
             title="Debt Sources"
             defaultLabel="Debt Source"
-            initialForm={[{
-              id: '0',
-              name: '0',
-              label: 'Debt Source',
-              value: ''
-            }]}
+            initialForm={debtSources}
           />
         }
       </Container>
