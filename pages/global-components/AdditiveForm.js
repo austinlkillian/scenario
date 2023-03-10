@@ -2,18 +2,20 @@ import React, { useState } from 'react';
 import { cloneDeep } from 'lodash'
 import NumberFormatCustom from './NumberFormatCustom'
 import Button from '@mui/material/Button';
+import IconButton from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, initialForm}) {
-  const [fields, setFields] = useState(cloneDeep(initialForm));
+export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, initialField}) {
+  const [fields, setFields] = useState(cloneDeep(initialField));
 
-  const handleChange = (e) => {
-    const {name, value} = e.target
+  const handleChange = (e, id) => {
+    const {value} = e.target
     const updatedFields = fields.map(field => {
-      if(field.name === name) {
+      if(field.id === id) {
         field.value = value
       }
       return field
@@ -21,10 +23,9 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
     setFields(updatedFields);
   };
 
- const handleEditLabel = (e) => {
-    const {innerText} = e.target
+ const handleEditLabel = (id) => {
     const updatedFields = fields.map((field) => {
-      if(field.label === innerText) {
+      if(field.id === id) {
         field.edit = true
       }
       return field
@@ -32,10 +33,10 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
     setFields(updatedFields);
   }
 
- const handleChangeLabel = (e) => {
-    const {name, value} = e.target
+ const handleChangeLabel = (e, id) => {
+    const {value} = e.target
     const updatedFields = fields.map((field) => {
-      if(field.label === name) {
+      if(field.id === id) {
         field.label = value
       }
       return field
@@ -43,10 +44,10 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
     setFields(updatedFields);
   }
 
-  const handleSaveLabel = (e) => {
+  const handleSaveLabel = (e, id) => {
     if (e.key === 'Enter') {
       const updatedFields = fields.map((field) => {
-        if(field.label === e.target.name) {
+        if(field.id === id) {
           field.edit = false
         }
         return field
@@ -60,14 +61,23 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
     setFields([
       ...fields,
       {
-        id: `${fields.length}`,
-        name: `${fields.length}`,
+        id: `${initialField[0].id}${fields.length + 1}`,
+        name: `${initialField[0].name}${fields.length + 1}`,
         label: `${defaultLabel} ${fields.length + 1}`,
         value: '',
         edit: false,
       }
     ])
   };
+
+  const handleDelete = (id) => {
+    if(fields.length > 1) {
+      const updatedFields = fields.filter((field) => {
+        if(field.id !== id) return field
+      })
+      setFields(updatedFields);
+    }
+  }
 
   const handleBack = async () => {
     await saveForm(fields)
@@ -99,18 +109,41 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
         <Grid container spacing={2}>
           {fields.map((field, i) => {
             return <Grid key={i} item xs={12}>
-              {!field.edit && <label onClick={handleEditLabel}>{field.label}</label>}
-              {field.edit && <input name={field.label} value={field.label} onChange={handleChangeLabel} onKeyDown={handleSaveLabel}/>}
-              <TextField
-                type="text"
-                id={field.id}
-                name={field.name}
-                fullWidth
-                autoFocus
-                value={field.value}
-                onChange={handleChange}
-                InputProps={{inputComponent: NumberFormatCustom}}
-              />
+              {!field.edit && <label onClick={() => handleEditLabel(field.id)}>{field.label}</label>}
+              {field.edit && 
+                <input 
+                  name={field.label} 
+                  value={field.label} 
+                  onChange={(e) => handleChangeLabel(e, field.id)} 
+                  onKeyDown={(e) => handleSaveLabel(e, field.id)}
+                />
+              }
+              <Grid container spacing={1}>
+                <Grid item xs={11}>
+                  <TextField
+                    type="text"
+                    id={field.id}
+                    name={field.name}
+                    fullWidth
+                    autoFocus
+                    value={field.value}
+                    onChange={(e) => handleChange(e, field.id)}
+                    InputProps={{inputComponent: NumberFormatCustom}}
+                  />
+                </Grid>
+                <Grid item xs={1}>
+                  {fields.length > 1 && <IconButton 
+                    className="full-height"
+                    type="button"
+                    color="error"
+                    size="large"
+                    onClick={() => handleDelete(field.id)}
+                    aria-label="delete"
+                  >
+                    <DeleteIcon />
+                  </IconButton>}
+                </Grid>
+              </Grid>
             </Grid>
           })}
           <Grid item xs={12}>

@@ -52,7 +52,7 @@ export default function CashFlowForm() {
             saveForm={saveIncome}
             title="Monthly Income"
             defaultLabel="Income"
-            initialForm={incomeSources}
+            initialField={incomeSources}
           />
         }
         {formView === 2 && 
@@ -62,7 +62,7 @@ export default function CashFlowForm() {
             saveForm={saveBills}
             title="Monthly Bills"
             defaultLabel="Bill"
-            initialForm={billSources}
+            initialField={billSources}
           />
         }
         {formView === 3 && 
@@ -72,7 +72,7 @@ export default function CashFlowForm() {
             saveForm={saveDebts}
             title="Monthly Debt Payments"
             defaultLabel="Payment"
-            initialForm={debtSources}
+            initialField={debtSources}
           />
         }
       </Container>
