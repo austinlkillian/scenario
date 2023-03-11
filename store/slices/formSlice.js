@@ -3,23 +3,18 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = {
   incomeSources: [{
     id: 'income',
-    name: 'income',
-    label: 'Income',
-    value: '',
-    edit: false
+    name: '',
+    amount: ''
   }],
   billSources: [{
     id: 'bill',
-    name: 'bill',
-    label: 'Bill',
-    value: ''
+    name: '',
+    amount: ''
   }],
   debtSources: [{
     id: 'payment',
-    name: 'payment',
-    label: 'Payment',
-    value: '',
-    edit: false,
+    name: '',
+    amount: '',
   }],
 }
 

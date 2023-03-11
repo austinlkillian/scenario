@@ -9,63 +9,28 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, initialField}) {
-  const [fields, setFields] = useState(cloneDeep(initialField));
+export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, formData}) {
+  const [fields, setFields] = useState(cloneDeep(formData));
 
-  const handleChange = (e, id) => {
+  const handleChange = (e, id, sourceField) => {
     const {value} = e.target
     const updatedFields = fields.map(field => {
       if(field.id === id) {
-        field.value = value
+        field[sourceField] = value
       }
       return field
     })
     setFields(updatedFields);
   };
 
- const handleEditLabel = (id) => {
-    const updatedFields = fields.map((field) => {
-      if(field.id === id) {
-        field.edit = true
-      }
-      return field
-    })
-    setFields(updatedFields);
-  }
-
- const handleChangeLabel = (e, id) => {
-    const {value} = e.target
-    const updatedFields = fields.map((field) => {
-      if(field.id === id) {
-        field.label = value
-      }
-      return field
-    })
-    setFields(updatedFields);
-  }
-
-  const handleSaveLabel = (e, id) => {
-    if (e.key === 'Enter') {
-      const updatedFields = fields.map((field) => {
-        if(field.id === id) {
-          field.edit = false
-        }
-        return field
-      })
-      setFields(updatedFields);
-    }
-  }
-
   const handleAdd = (e) => {
     e.preventDefault();
     setFields([
       ...fields,
       {
-        id: `${initialField[0].id}${fields.length + 1}`,
-        name: `${initialField[0].name}${fields.length + 1}`,
-        label: `${defaultLabel} ${fields.length + 1}`,
-        value: '',
-        edit: false,
+        id: `${formData[0].id}${fields.length + 1}`,
+        name: '',
+        amount: '',
       }
     ])
   };
@@ -79,18 +44,9 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
     }
   }
 
-  const handleBack = async () => {
+  const handleFormSubmit = async (direction) => {
     await saveForm(fields)
-    changeFormView('back')
-  };
-
-  const handleNext = async () => {
-    await saveForm(fields)
-    if(formView < 3) {
-      changeFormView('next')
-    } else {
-      changeFormView('finish')
-    }
+    changeFormView(direction)
   };
 
   return (
@@ -109,25 +65,26 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
         <Grid container spacing={2}>
           {fields.map((field, i) => {
             return <Grid key={i} item xs={12}>
-              {!field.edit && <label onClick={() => handleEditLabel(field.id)}>{field.label}</label>}
-              {field.edit && 
-                <input 
-                  name={field.label} 
-                  value={field.label} 
-                  onChange={(e) => handleChangeLabel(e, field.id)} 
-                  onKeyDown={(e) => handleSaveLabel(e, field.id)}
-                />
-              }
               <Grid container spacing={1}>
-                <Grid item xs={11}>
+                <Grid item xs={6}>
                   <TextField
                     type="text"
                     id={field.id}
-                    name={field.name}
                     fullWidth
                     autoFocus
-                    value={field.value}
-                    onChange={(e) => handleChange(e, field.id)}
+                    label={`${defaultLabel} Name`}
+                    value={field.name}
+                    onChange={(e) => handleChange(e, field.id, 'name')}
+                  />
+                </Grid>
+                <Grid item xs={5}>
+                  <TextField
+                    type="text"
+                    id={field.id}
+                    fullWidth
+                    label={`${defaultLabel} Amount`}
+                    value={field.amount}
+                    onChange={(e) => handleChange(e, field.id, 'amount')}
                     InputProps={{inputComponent: NumberFormatCustom}}
                   />
                 </Grid>
@@ -160,7 +117,7 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
           {formView !== 1 && <Grid item xs={6}>
             <Button
               type="button"
-              onClick={handleBack}
+              onClick={() => handleFormSubmit('back')}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2, mr: 2 }}
@@ -171,7 +128,7 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
           <Grid item xs={formView === 1 ? 12 : 6}>
             <Button
               type="button"
-              onClick={handleNext}
+              onClick={formView < 3 ? () => handleFormSubmit('next') : () => handleFormSubmit('finish')}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
