@@ -16,6 +16,11 @@ const initialState = {
     name: '',
     amount: '',
   }],
+  totals: {
+    totalIncome: 0,
+    totalBills: 0,
+    totalDebt: 0,
+  },
 }
 
 export const formSlice = createSlice({
@@ -24,12 +29,27 @@ export const formSlice = createSlice({
   reducers: {
     saveIncomeSources: (state, action) => {
       state.incomeSources = action.payload
+      let totalIncome = 0
+      action.payload.forEach(source => {
+        totalIncome += Number(source.amount)
+      })
+      state.totals.totalIncome = totalIncome
     },
     saveBillSources: (state, action) => {
       state.billSources = action.payload
+      let totalBills = 0
+      action.payload.forEach(source => {
+        totalBills += Number(source.amount)
+      })
+      state.totals.totalBills = totalBills
     },
     saveDebtSources: (state, action) => {
       state.debtSources = action.payload
+      let totalDebt = 0
+      action.payload.forEach(source => {
+        totalDebt += Number(source.amount)
+      })
+      state.totals.totalDebt = totalDebt
     },
   },
 })

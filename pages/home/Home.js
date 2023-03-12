@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import CssBaseline from '@mui/material/CssBaseline';
 import CashFlowForm from './home-views/CashFlowForm';
 import ProjectionView from './home-views/ProjectionView';
 
@@ -10,10 +11,7 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="title">
-        Welcome to <span className="textBlue">Debt Projector</span>
-      </h1>
-
+      <CssBaseline />
       {homeView === 'cashFlowView' && <CashFlowForm />}
       {homeView === 'projectionView' && <ProjectionView />}
     </>

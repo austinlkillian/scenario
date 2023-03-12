@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { cloneDeep } from 'lodash'
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 import NumberFormatCustom from './NumberFormatCustom'
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 
 export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, formData}) {
   const [fields, setFields] = useState(cloneDeep(formData));
@@ -58,10 +58,10 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
         alignItems: 'center'
       }}
     >
-      <Typography component="h1" variant="h5">
+      <Typography variant="h5">
         {title}
       </Typography>
-      <Box component="form" noValidate sx={{ mt: 3, minWidth: '400px' }}>
+      <Box component="form" onSubmit={handleAdd} noValidate sx={{ mt: 3, minWidth: '400px' }}>
         <Grid container spacing={2}>
           {fields.map((field, i) => {
             return <Grid key={i} item xs={12}>
@@ -105,9 +105,8 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
           })}
           <Grid item xs={12}>
             <Button
-              type="button"
+              type="submit"
               variant="outlined"
-              onClick={handleAdd}
             >
               +
             </Button>

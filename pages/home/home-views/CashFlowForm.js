@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
 import AdditiveForm from '../../global-components/AdditiveForm';
 import { useSelector, useDispatch } from 'react-redux';
@@ -40,11 +39,13 @@ export default function CashFlowForm() {
 
   return (
     <>
-      <p className="description">
+      <h1 className="title">
+        Welcome to <span className="textBlue">Debt Projector</span>
+      </h1>
+      <h2 className="description">
         Get started by filling out your <strong>financial info:</strong>
-      </p>
+      </h2>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         {formView === 1 && 
           <AdditiveForm 
             formView={formView}
