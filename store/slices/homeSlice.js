@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  homeView: 'cashFlowView'
+  homeView: 'getStartedView'
 }
 
 export const homeSlice = createSlice({
