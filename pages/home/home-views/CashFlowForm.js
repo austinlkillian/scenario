@@ -16,7 +16,9 @@ export default function CashFlowForm() {
   const [formView, setFormView] = useState(1);
 
   const changeFormView = (direction) => {
-    if(direction === 'back') {
+    if(direction === 'back' && formView === 1) {
+      dispatch(setHomeView('getStartedView'))
+    } else if(direction === 'back' && formView > 1) {
       setFormView(formView - 1)
     } else if(direction === 'next') {
       setFormView(formView + 1)

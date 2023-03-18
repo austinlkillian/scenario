@@ -113,7 +113,7 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
           </Grid>
         </Grid>
         <Grid container spacing={2}>
-          {formView !== 1 && <Grid item xs={6}>
+          <Grid item xs={6}>
             <Button
               type="button"
               onClick={() => handleFormSubmit('back')}
@@ -121,10 +121,10 @@ export default function AdditiveForm({formView, changeFormView, saveForm, title,
               variant="contained"
               sx={{ mt: 3, mb: 2, mr: 2 }}
             >
-              Back
+              {formView !== 1 ? 'Back' : 'Go Home'}
             </Button>
-          </Grid>}
-          <Grid item xs={formView === 1 ? 12 : 6}>
+          </Grid>
+          <Grid item xs={6}>
             <Button
               type="button"
               onClick={formView < 3 ? () => handleFormSubmit('next') : () => handleFormSubmit('finish')}

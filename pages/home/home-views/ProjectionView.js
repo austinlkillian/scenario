@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import { setHomeView } from '../../../store/slices/homeSlice';
 
 export default function CashFlowForm() {
   const { 
@@ -10,6 +12,7 @@ export default function CashFlowForm() {
     debtSources,
     totals
   } = useSelector((state) => state.form);
+  const dispatch = useDispatch()
 
   const [finalTotal, setFinalTotal] = useState(totals.totalIncome - totals.totalBills - totals.totalDebt)
 
@@ -80,6 +83,19 @@ export default function CashFlowForm() {
           </Grid>
           <Grid item xs={4}>
             <h4 className="mtb-sm">TOTAL DEBT PAYMENTS: <span className="payment">${totals.totalDebt}</span></h4>
+          </Grid>
+        </Grid>
+        <Grid className="mt-lg" container spacing={1}>
+          <Grid item xs={3}>
+            <Button
+              type="button"
+              onClick={() => dispatch(setHomeView('cashFlowView'))}
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Edit Finances
+            </Button>
           </Grid>
         </Grid>
       </Box>

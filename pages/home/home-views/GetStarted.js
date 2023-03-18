@@ -8,10 +8,6 @@ export default function CashFlowForm() {
   const { formFinished } = useSelector(state => state.form)
   const dispatch = useDispatch();
 
-  const setView = (view) => {
-    dispatch(setHomeView(view))
-  }
-
   return (
     <>
       <h1 className="title">
@@ -23,7 +19,7 @@ export default function CashFlowForm() {
       <Container component="main" maxWidth="xs">
         { !formFinished && <Button
             type="button"
-            onClick={() => setView('cashFlowView')}
+            onClick={() => dispatch(setHomeView('cashFlowView'))}
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
@@ -35,7 +31,7 @@ export default function CashFlowForm() {
           <>
             <Button
               type="button"
-              onClick={() => setView('cashFlowView')}
+              onClick={() => dispatch(setHomeView('cashFlowView'))}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
@@ -45,7 +41,7 @@ export default function CashFlowForm() {
 
             <Button
               type="button"
-              onClick={() => setView('projectionView')}
+              onClick={() => dispatch(setHomeView('projectionView'))}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
