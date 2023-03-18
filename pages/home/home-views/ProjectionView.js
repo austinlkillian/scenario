@@ -21,7 +21,7 @@ export default function CashFlowForm() {
       <h1 className="title">
         Great job filling out your <span className="textBlue">financial info</span>
       </h1>
-      <h2 className="description">
+      <h2 className="description mb-lg">
         Here is your monthly <strong>financial breakdown:</strong>
       </h2>
       <Box sx={{ width: '90%' }}>
@@ -29,6 +29,18 @@ export default function CashFlowForm() {
           Your monthly <strong>{finalTotal > 0 ? 'Earnings' : 'Losses'}</strong> are:{' '}
           <span className={finalTotal > 0 ? 'income' : 'payment'}>${finalTotal}</span>
         </p>
+        <Grid container spacing={1}>
+          <Grid item xs={4}>
+            <h4 className="mtb-sm">INCOME</h4>
+          </Grid>
+          <Grid item xs={4}>
+            <h4 className="mtb-sm">BILLS</h4>
+          </Grid>
+          <Grid item xs={4}>
+            <h4 className="mtb-sm">DEBT</h4>
+          </Grid>
+        </Grid>
+        <hr/>
         <Grid container spacing={2}>
           <Grid item xs={4}>
             {incomeSources.map((source, i) => {
