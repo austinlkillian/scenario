@@ -40,7 +40,7 @@ export default function CashFlowForm() {
   return (
     <>
       <h1 className="title">
-        Welcome to <span className="textBlue">Debt Projector</span>
+        Welcome to <span className="textBlue">Scenario</span>
       </h1>
       <h2 className="description">
         Get started by filling out your <strong>financial info:</strong>

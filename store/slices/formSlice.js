@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { financeFormFinished } from '../../helpers/financialHelpers'
 
 const initialState = {
   incomeSources: [{
@@ -21,6 +22,7 @@ const initialState = {
     totalBills: 0,
     totalDebt: 0,
   },
+  formFinished: false,
 }
 
 export const formSlice = createSlice({
@@ -33,6 +35,7 @@ export const formSlice = createSlice({
       state.billSources = storage.billSources
       state.debtSources = storage.debtSources
       state.totals = storage.totals
+      state.formFinished = financeFormFinished(storage.totals)
     },
     saveIncomeSources: (state, action) => {
       state.incomeSources = action.payload
@@ -41,7 +44,7 @@ export const formSlice = createSlice({
         totalIncome += Number(source.amount)
       })
       state.totals.totalIncome = totalIncome
-      localStorage.setItem('debtProjectorFinancialData', JSON.stringify(state))
+      localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
     saveBillSources: (state, action) => {
       state.billSources = action.payload
@@ -50,7 +53,7 @@ export const formSlice = createSlice({
         totalBills += Number(source.amount)
       })
       state.totals.totalBills = totalBills
-      localStorage.setItem('debtProjectorFinancialData', JSON.stringify(state))
+      localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
     saveDebtSources: (state, action) => {
       state.debtSources = action.payload
@@ -59,7 +62,7 @@ export const formSlice = createSlice({
         totalDebt += Number(source.amount)
       })
       state.totals.totalDebt = totalDebt
-      localStorage.setItem('debtProjectorFinancialData', JSON.stringify(state))
+      localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
   },
 })

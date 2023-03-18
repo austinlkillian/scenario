@@ -5,8 +5,8 @@ export default function Main() {
   return (
     <div className="container">
       <Head>
-        <title>Debt Projector</title>
-        <meta name="description" content="Project how long until you are debt free." />
+        <title>Scenario</title>
+        <meta name="description" content="A financial budgeting and debt projection tool." />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
