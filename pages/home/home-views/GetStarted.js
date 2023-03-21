@@ -41,7 +41,7 @@ export default function CashFlowForm() {
 
             <Button
               type="button"
-              onClick={() => dispatch(setHomeView('projectionView'))}
+              onClick={() => dispatch(setHomeView('breakdownView'))}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

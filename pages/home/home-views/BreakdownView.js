@@ -25,9 +25,13 @@ export default function CashFlowForm() {
         Here is your monthly <strong>financial breakdown:</strong>
       </h2>
       <Box sx={{ width: '90%' }}>
-        <p className="description">
+        <p className="description mb-lg">
           Your monthly <strong>{finalTotal > 0 ? 'Earnings' : 'Losses'}</strong> are:{' '}
           <span className={finalTotal > 0 ? 'income' : 'payment'}>${finalTotal}</span>
+        </p>
+        <p className="description mt-lg">
+          Your annual <strong>{finalTotal > 0 ? 'Earnings' : 'Losses'}</strong> are:{' '}
+          <span className={finalTotal > 0 ? 'income' : 'payment'}>${finalTotal * 12 }</span>
         </p>
         <Grid container spacing={1}>
           <Grid item xs={4}>

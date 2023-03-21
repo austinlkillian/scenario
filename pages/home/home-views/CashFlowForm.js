@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Container from '@mui/material/Container';
-import AdditiveForm from '../../global-components/AdditiveForm';
+import FinancialForm from '../components/FinancialForm';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveIncomeSources, saveBillSources, saveDebtSources } from '../../../store/slices/formSlice';
 import { setHomeView } from '../../../store/slices/homeSlice';
@@ -23,7 +23,7 @@ export default function CashFlowForm() {
     } else if(direction === 'next') {
       setFormView(formView + 1)
     } else {
-      dispatch(setHomeView('projectionView'))
+      dispatch(setHomeView('breakdownView'))
     }
   }
 
@@ -49,7 +49,7 @@ export default function CashFlowForm() {
       </h2>
       <Container component="main" maxWidth="xs">
         {formView === 1 && 
-          <AdditiveForm 
+          <FinancialForm 
             formView={formView}
             changeFormView={changeFormView} 
             saveForm={saveIncome}
@@ -59,7 +59,7 @@ export default function CashFlowForm() {
           />
         }
         {formView === 2 && 
-          <AdditiveForm 
+          <FinancialForm 
             formView={formView}
             changeFormView={changeFormView} 
             saveForm={saveBills}
@@ -69,7 +69,7 @@ export default function CashFlowForm() {
           />
         }
         {formView === 3 && 
-          <AdditiveForm 
+          <FinancialForm 
             formView={formView}
             changeFormView={changeFormView} 
             saveForm={saveDebts}

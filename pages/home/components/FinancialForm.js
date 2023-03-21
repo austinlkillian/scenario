@@ -3,13 +3,13 @@ import { cloneDeep } from 'lodash'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import NumberFormatCustom from './NumberFormatCustom'
+import NumberFormatCustom from '../../global-components/NumberFormatCustom'
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
 
-export default function AdditiveForm({formView, changeFormView, saveForm, title, defaultLabel, formData}) {
+export default function FinancialForm({formView, changeFormView, saveForm, title, defaultLabel, formData}) {
   const [fields, setFields] = useState(cloneDeep(formData));
 
   const handleChange = (e, id, sourceField) => {

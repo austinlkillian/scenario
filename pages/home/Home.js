@@ -4,7 +4,7 @@ import { setFormState } from '../../store/slices/formSlice';
 import CssBaseline from '@mui/material/CssBaseline';
 import CashFlowForm from './home-views/CashFlowForm';
 import GetStarted from './home-views/GetStarted';
-import ProjectionView from './home-views/ProjectionView';
+import BreakdownView from './home-views/BreakdownView';
 
 export default function Home() {
   const { homeView } = useSelector((state) => state.home);
@@ -26,7 +26,7 @@ export default function Home() {
       <CssBaseline />
       {homeView === 'getStartedView' && <GetStarted />}
       {homeView === 'cashFlowView' && <CashFlowForm />}
-      {homeView === 'projectionView' && <ProjectionView />}
+      {homeView === 'breakdownView' && <BreakdownView />}
     </>
   );
 }
