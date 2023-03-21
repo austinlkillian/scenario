@@ -4,17 +4,17 @@ import Box from '@mui/material/Box';
 import { Button } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setHomeView } from '../../../store/slices/homeSlice';
+import { financialDataTotal } from '../../../helpers/financialHelpers';
 
 export default function CashFlowForm() {
   const { 
     incomeSources, 
     billSources, 
     debtSources,
-    totals
   } = useSelector((state) => state.form);
   const dispatch = useDispatch()
 
-  const [finalTotal, setFinalTotal] = useState(totals.totalIncome - totals.totalBills - totals.totalDebt)
+  const [finalTotal, setFinalTotal] = useState(financialDataTotal(incomeSources) - financialDataTotal(billSources) - financialDataTotal(debtSources))
 
   return (
     <>
@@ -92,13 +92,13 @@ export default function CashFlowForm() {
         <hr />
         <Grid container spacing={1}>
           <Grid item xs={4}>
-            <h4 className="mtb-sm">TOTAL INCOME: <span className="income">${totals.totalIncome}</span></h4>
+            <h4 className="mtb-sm">TOTAL INCOME: <span className="income">${financialDataTotal(incomeSources)}</span></h4>
           </Grid>
           <Grid item xs={4}>
-            <h4 className="mtb-sm">TOTAL BILLS: <span className="payment">${totals.totalBills}</span></h4>
+            <h4 className="mtb-sm">TOTAL BILLS: <span className="payment">${financialDataTotal(billSources)}</span></h4>
           </Grid>
           <Grid item xs={4}>
-            <h4 className="mtb-sm">TOTAL DEBT PAYMENTS: <span className="payment">${totals.totalDebt}</span></h4>
+            <h4 className="mtb-sm">TOTAL DEBT PAYMENTS: <span className="payment">${financialDataTotal(debtSources)}</span></h4>
           </Grid>
         </Grid>
         <Grid className="mt-lg" container spacing={1}>

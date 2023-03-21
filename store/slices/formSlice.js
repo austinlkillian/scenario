@@ -17,11 +17,6 @@ const initialState = {
     name: '',
     amount: '',
   }],
-  totals: {
-    totalIncome: 0,
-    totalBills: 0,
-    totalDebt: 0,
-  },
   formFinished: false,
 }
 
@@ -34,8 +29,7 @@ export const formSlice = createSlice({
       state.incomeSources = storage.incomeSources
       state.billSources = storage.billSources
       state.debtSources = storage.debtSources
-      state.totals = storage.totals
-      state.formFinished = financeFormFinished(storage.totals)
+      state.formFinished = financeFormFinished(storage)
     },
     saveIncomeSources: (state, action) => {
       state.incomeSources = action.payload
@@ -43,7 +37,6 @@ export const formSlice = createSlice({
       action.payload.forEach(source => {
         totalIncome += Number(source.amount)
       })
-      state.totals.totalIncome = totalIncome
       localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
     saveBillSources: (state, action) => {
@@ -52,7 +45,6 @@ export const formSlice = createSlice({
       action.payload.forEach(source => {
         totalBills += Number(source.amount)
       })
-      state.totals.totalBills = totalBills
       localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
     saveDebtSources: (state, action) => {
@@ -61,7 +53,6 @@ export const formSlice = createSlice({
       action.payload.forEach(source => {
         totalDebt += Number(source.amount)
       })
-      state.totals.totalDebt = totalDebt
       localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
   },
