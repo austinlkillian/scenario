@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { financeFormFinished } from '../../helpers/financialHelpers'
+import { financeFormFinished, formCleanup } from '../../helpers/financialHelpers'
 
 const initialState = {
   incomeSources: [{
@@ -32,27 +32,15 @@ export const formSlice = createSlice({
       state.formFinished = financeFormFinished(storage)
     },
     saveIncomeSources: (state, action) => {
-      state.incomeSources = action.payload
-      let totalIncome = 0
-      action.payload.forEach(source => {
-        totalIncome += Number(source.amount)
-      })
+      state.incomeSources = formCleanup(action.payload)
       localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
     saveBillSources: (state, action) => {
-      state.billSources = action.payload
-      let totalBills = 0
-      action.payload.forEach(source => {
-        totalBills += Number(source.amount)
-      })
+      state.billSources = formCleanup(action.payload)
       localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
     saveDebtSources: (state, action) => {
-      state.debtSources = action.payload
-      let totalDebt = 0
-      action.payload.forEach(source => {
-        totalDebt += Number(source.amount)
-      })
+      state.debtSources = formCleanup(action.payload)
       localStorage.setItem('scenarioFinancialData', JSON.stringify(state))
     },
   },

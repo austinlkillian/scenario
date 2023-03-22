@@ -1,3 +1,5 @@
+import { cloneDeep } from "lodash"
+
 export const financialDataTotal = (financialData) => {
   let totalIncome = 0
   financialData.forEach(source => {
@@ -17,7 +19,23 @@ export const financeFormFinished = (allSources) => {
   return false
 }
 
+export const formCleanup = (sources) => {
+  const cleanSources = cloneDeep(sources)
+  cleanSources = cleanSources.filter((source) => {
+    return source.name && source.amount
+  })
+  cleanSources.sort((a, b) => {
+    const nameA = a.name.toUpperCase()
+    const nameB = b.name.toUpperCase()
+    if(nameA < nameB) {
+      return -1
+    }
+  })
+  return cleanSources
+}
+
 export default {
   financialDataTotal,
   financeFormFinished,
+  formCleanup
 }
