@@ -16,7 +16,7 @@ export default function FinancialForm({formView, changeFormView, saveForm, title
     const {value} = e.target
     const updatedFields = fields.map(field => {
       if(field.id === id) {
-        field[sourceField] = value
+        field[sourceField] = value.toUpperCase()
       }
       return field
     })

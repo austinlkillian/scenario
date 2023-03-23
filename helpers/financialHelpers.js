@@ -22,12 +22,14 @@ export const financeFormFinished = (allSources) => {
 export const formCleanup = (sources) => {
   const cleanSources = cloneDeep(sources)
   cleanSources = cleanSources.filter((source) => {
-    return source.name && source.amount
+    if(sources.length === 1) {
+      return source
+    } else if(sources.length > 1 && source.name && source.amount) {
+      return source
+    }
   })
   cleanSources.sort((a, b) => {
-    const nameA = a.name.toUpperCase()
-    const nameB = b.name.toUpperCase()
-    if(nameA < nameB) {
+    if(a.name < b.name) {
       return -1
     }
   })
